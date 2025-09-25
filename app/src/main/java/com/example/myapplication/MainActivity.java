@@ -1,24 +1,46 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity {
+    EditText edtEmail, edtPassword;
+    Button btnSignIn, btnCreateAccount;
+    TextView txtForgot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        edtEmail = findViewById(R.id.edtEmail);
+        edtPassword = findViewById(R.id.edtPassword);
+        btnSignIn = findViewById(R.id.btnSignIn);
+        btnCreateAccount = findViewById(R.id.btnCreateAccount);
+        txtForgot = findViewById(R.id.txtForgot);
+
+        // Xử lý nút Sign In
+        btnSignIn.setOnClickListener(v -> {
+            String email = edtEmail.getText().toString();
+            String pass = edtPassword.getText().toString();
+            if(email.equals("khanhly_2118") && pass.equals("123")){
+                Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Mở màn hình Create Account
+        btnCreateAccount.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
+            startActivity(intent);
         });
     }
 }
